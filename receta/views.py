@@ -24,10 +24,5 @@ class RecetaCreate(generics.CreateAPIView):
 
 def recipeByUser(request, pk):
     recetas = Receta.objects.filter(user_id=pk)
-    data = []
-    for r in recetas:
-       data.append({
-            'pk': r.pk,
-            'name': r.name
-        })
-    return JsonResponse(data, safe=False)
+    serializer = RecetaSerializer(recetas, many=True)
+    return JsonResponse(serializer.data, safe=False)
