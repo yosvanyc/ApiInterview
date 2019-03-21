@@ -22,6 +22,7 @@ class RecetaDetail(generics.RetrieveUpdateDestroyAPIView):
 class RecetaCreate(generics.CreateAPIView):
     serializer_class = RecetaSerializer
 
+    
 @api_view()
 def recipeByUser(request, pk):
     recetas = Receta.objects.filter(user_id=pk)
