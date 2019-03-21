@@ -1,9 +1,10 @@
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 import pdb, json
 
 # Create your views here.
 from rest_framework import generics
-from rest_framework.response import Response
 from .models import Receta
 from .serializers import RecetaSerializer
 
@@ -21,8 +22,8 @@ class RecetaDetail(generics.RetrieveUpdateDestroyAPIView):
 class RecetaCreate(generics.CreateAPIView):
     serializer_class = RecetaSerializer
 
-
+@api_view()
 def recipeByUser(request, pk):
     recetas = Receta.objects.filter(user_id=pk)
     serializer = RecetaSerializer(recetas, many=True)
-    return JsonResponse(serializer.data, safe=False)
+    return Response(serializer.data)
